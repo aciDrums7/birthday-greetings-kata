@@ -80,12 +80,6 @@ Application logic classes contain a bunch of logic, but no calls to the new oper
 
 ## Development
 
-Select the correct node version and install the required dependencies:
-
-```javascript
-nvm use && npm i
-```
-
 Run the application in development mode:
 
 ```javascript
@@ -94,7 +88,6 @@ npm run dev
 
 ## Testing
 
-Due to time constraints, only unit tests are currently implemented. Lots of improvements could be done, however, I feel that is out-of-scope for this project.
 You can run the unit tests using Jest:
 
 ```javascript

@@ -1,4 +1,4 @@
-# The Birthday Greetins Kata
+# The Birthday Greetings Kata
 
 ## Problem
 

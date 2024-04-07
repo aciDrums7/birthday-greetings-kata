@@ -1,7 +1,5 @@
 # The Birthday Greetins Kata
 
----
-
 L'obiettivo è sviluppare una piccola applicazione per inviare automaticamente auguri alle persone che compiono gli anni.
 
 Anche se l'esercizio suggerisce l'uso di Java, preferiremmo che lo svolgessi in Node. Sei libero di scegliere architettura, tdd o non tdd, funzionale o meno. Se realizzato in TypeScript meglio, ma va bene anche in semplice JavaScript.

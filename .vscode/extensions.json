@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "mikestead.dotenv",
+        "mechatroner.rainbow-csv",
+        "firsttris.vscode-jest-runner"
+    ]
+}

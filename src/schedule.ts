@@ -1,6 +1,5 @@
 import path from 'path'
-import emailNotifier from './notifiers/impl/email'
-import csvStore from './stores/impl/csv'
+import { store, notifier } from './config'
 
 const schedule = () => {
   const DUMMY_DATA_PATH = path.resolve(
@@ -8,13 +7,7 @@ const schedule = () => {
     './tests/unit/mocks/good_employees.csv'
   )
   try {
-    // const storeModule = await import(`./stores/${config.store}`)
-    // const notifyModule = await import(`./notifiers/${config.notifier}`)
-
-    // const loader = storeModule.default
-    // const notifier: Notifier = notifyModule.default
-
-    csvStore.loadAndProcessStore(emailNotifier, DUMMY_DATA_PATH)
+    store.loadAndProcessStore(notifier, DUMMY_DATA_PATH)
   } catch (err) {
     console.error(err)
     process.exit(1)

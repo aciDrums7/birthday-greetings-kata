@@ -1,4 +1,4 @@
-import { createTransport, SendMailOptions } from 'nodemailer'
+import emailNotifier from '../../../src/notifiers/impl/email'
 
 const logErrorSpy = jest.spyOn(console, 'error')
 
@@ -8,16 +8,15 @@ describe('notify', () => {
   })
 
   test('send mail successfully', async () => {
-    jest.mock('nodemailer', () => ({
-      createTransport: jest.fn().mockReturnValueOnce({
-        sendMail: jest.fn().mockResolvedValueOnce(null),
-      }),
-    }))
-    const notify = require('../../../src/notifiers/email')
-    await notify({
+    // jest.mock('nodemailer', () => ({
+    //   createTransport: jest.fn().mockReturnValueOnce({
+    //     sendMail: jest.fn().mockResolvedValueOnce(null),
+    //   }),
+    // }))
+    await emailNotifier.sendNotification({
       email: 'john@hotmail.com',
-      first_name: 'John',
-    } as SendMailOptions)
+      firstName: 'John',
+    })
 
     expect(logErrorSpy).toHaveBeenCalledTimes(0)
   })
@@ -30,11 +29,10 @@ describe('notify', () => {
           .mockRejectedValueOnce(new Error('Something went wrong')),
       }),
     }))
-    const notify = require('../../../src/notifiers/email')
-    await notify({
+    await emailNotifier.sendNotification({
       email: 'john@hotmail.com',
-      first_name: 'John',
-    } as SendMailOptions)
+      firstName: 'John',
+    })
 
     expect(logErrorSpy).toHaveBeenCalledTimes(1)
     expect(logErrorSpy).toHaveBeenCalledWith(new Error('Something went wrong'))

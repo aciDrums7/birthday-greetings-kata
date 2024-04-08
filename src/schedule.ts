@@ -1,7 +1,5 @@
 import path from 'path'
-import { config } from './config'
 import emailNotifier from './notifiers/impl/email'
-import Notifier from './notifiers/notifier'
 import csvStore from './stores/impl/csv'
 
 const schedule = () => {

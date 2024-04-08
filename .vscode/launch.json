@@ -10,6 +10,9 @@
                 "${workspaceRoot}/node_modules/.bin/jest",
                 "--runInBand"
             ],
+            // "args": [
+            //     "--testNamePattern='notify'"
+            // ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"
         }

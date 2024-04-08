@@ -13,15 +13,19 @@ const cronScheduleSpy = jest.spyOn(cron, 'schedule')
 const logErrorSpy = jest.spyOn(console, 'error')
 
 describe('load', () => {
-  // test('csv successfully', async () => {
-  //   cron.schedule = jest.fn()
-  //   csvStore.loadAndProcessStore(emailNotifier, goodEmployees)
-  //   await sleep(2000)
+  afterEach(() => {
+    jest.resetAllMocks()
+  })
 
-  //   expect(cronValidateSpy).toHaveBeenCalledTimes(3)
-  //   expect(cron.schedule).toHaveBeenCalledTimes(3)
-  //   expect(logErrorSpy).toHaveBeenCalledTimes(0)
-  // })
+  test('csv successfully', async () => {
+    cron.schedule = jest.fn()
+    csvStore.loadAndProcessStore(emailNotifier, goodEmployees)
+    await sleep(2000)
+
+    expect(cronValidateSpy).toHaveBeenCalledTimes(3)
+    expect(cron.schedule).toHaveBeenCalledTimes(3)
+    expect(logErrorSpy).toHaveBeenCalledTimes(0)
+  })
 
   test('do not throw if employee or cron validations fails', async () => {
     cron.schedule = jest.fn()
@@ -40,7 +44,7 @@ describe('load', () => {
       new Error('ValidationError: "email" must be a valid email')
     )
     expect(logErrorSpy).toHaveBeenCalledWith(
-      new Error('Error: Invalid cron expression (0 0 0 NaN NaN * *)')
+      new Error('Invalid cron expression (0 0 0 NaN NaN * *)')
     )
     expect(logErrorSpy).toHaveBeenCalledWith(
       new Error(

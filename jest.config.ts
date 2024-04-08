@@ -3,9 +3,11 @@
  * https://jestjs.io/docs/configuration
  */
 
-module.exports = {
+import type { JestConfigWithTsJest } from 'ts-jest'
+
+const jestConfig: JestConfigWithTsJest = {
   // All imported modules in your tests should be mocked automatically
-  // automock: false,
+  automock: false,
 
   // Stop running tests after `n` failures
   // bail: 0,
@@ -14,16 +16,16 @@ module.exports = {
   // cacheDirectory: "/private/var/folders/j4/n68c_g5x67d0xzs9h93lbs880000gn/T/jest_dx",
 
   // Automatically clear mock calls, instances and results before every test
-  clearMocks: true,
+  // clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
-  collectCoverage: true,
+  // collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   // collectCoverageFrom: undefined,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: 'coverage',
+  // coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -93,7 +95,7 @@ module.exports = {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  // preset: undefined,
+  preset: "ts-jest",
 
   // Run tests from one or more projects
   // projects: undefined,
@@ -187,3 +189,5 @@ module.exports = {
   // Whether to use watchman for file crawling
   // watchman: true,
 }
+
+export default jestConfig;

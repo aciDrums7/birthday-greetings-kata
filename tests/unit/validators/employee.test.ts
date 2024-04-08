@@ -1,4 +1,4 @@
-const validateEmployee = require('../../../src/validators/employee')
+import validateEmployee from '../../../src/validators/employee'
 
 describe('validateEmployee', () => {
   test('successfully', async () => {

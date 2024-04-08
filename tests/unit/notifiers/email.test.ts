@@ -1,3 +1,5 @@
+import { createTransport, SendMailOptions } from 'nodemailer'
+
 const logErrorSpy = jest.spyOn(console, 'error')
 
 describe('notify', () => {
@@ -12,7 +14,10 @@ describe('notify', () => {
       }),
     }))
     const notify = require('../../../src/notifiers/email')
-    await notify({ email: 'john@hotmail.com', first_name: 'John' })
+    await notify({
+      email: 'john@hotmail.com',
+      first_name: 'John',
+    } as SendMailOptions)
 
     expect(logErrorSpy).toHaveBeenCalledTimes(0)
   })
@@ -26,7 +31,10 @@ describe('notify', () => {
       }),
     }))
     const notify = require('../../../src/notifiers/email')
-    await notify({ email: 'john@hotmail.com', first_name: 'John' })
+    await notify({
+      email: 'john@hotmail.com',
+      first_name: 'John',
+    } as SendMailOptions)
 
     expect(logErrorSpy).toHaveBeenCalledTimes(1)
     expect(logErrorSpy).toHaveBeenCalledWith(new Error('Something went wrong'))

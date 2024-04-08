@@ -1,9 +1,10 @@
-const Joi = require('joi')
+import Joi from 'joi';
 
 const stringRegEx = Joi.string()
   .pattern(new RegExp('^[a-zA-Z]+$'))
   .min(3)
-  .max(100)
+  .max(100);
+
 const employeeSchema = Joi.object({
   last_name: stringRegEx.required(),
   first_name: stringRegEx.required(),
@@ -11,6 +12,8 @@ const employeeSchema = Joi.object({
   date_of_birth: Joi.string()
     .pattern(new RegExp('^[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}$'))
     .required(),
-})
+});
 
-module.exports = (data) => employeeSchema.validate(data)
+const validateEmployee = (data: any) => employeeSchema.validate(data);
+
+export default validateEmployee

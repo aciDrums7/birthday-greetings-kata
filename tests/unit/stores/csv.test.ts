@@ -14,9 +14,9 @@ const logErrorSpy = jest.spyOn(console, 'error')
 let csvStore: CsvStore
 
 describe('store', () => {
-  // beforeEach(() => {
-  //   csvStore = new CsvStore(new EmailNotifier())
-  // })
+  beforeEach(() => {
+    csvStore = new CsvStore(new EmailNotifier())
+  })
 
   afterEach(() => {
     jest.resetAllMocks()
@@ -24,7 +24,6 @@ describe('store', () => {
 
   test('csv successfully', async () => {
     cron.schedule = jest.fn()
-    csvStore = new CsvStore(new EmailNotifier())
     csvStore.loadAndProcessStore(goodEmployees)
     await sleep(2000)
 
@@ -35,7 +34,6 @@ describe('store', () => {
 
   test('do not throw if employee or cron validations fails', async () => {
     cron.schedule = jest.fn()
-    csvStore = new CsvStore(new EmailNotifier())
     csvStore.loadAndProcessStore(badEmployees)
     await sleep(2000)
 

@@ -1,7 +1,7 @@
 import cron from 'node-cron'
 import path from 'path'
-import csvStore from '../../../src/stores/impl/csv'
-import emailNotifier from '../../../src/notifiers/impl/email'
+import CsvStore from '../../../src/stores/impl/csv'
+import EmailNotifier from '../../../src/notifiers/impl/email'
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -9,17 +9,23 @@ const goodEmployees = path.resolve(__dirname, '../mocks/good_employees.csv')
 const badEmployees = path.resolve(__dirname, '../mocks/bad_employees.csv')
 
 const cronValidateSpy = jest.spyOn(cron, 'validate')
-const cronScheduleSpy = jest.spyOn(cron, 'schedule')
 const logErrorSpy = jest.spyOn(console, 'error')
 
-describe('load', () => {
+let csvStore: CsvStore
+
+describe('store', () => {
+  // beforeEach(() => {
+  //   csvStore = new CsvStore(new EmailNotifier())
+  // })
+
   afterEach(() => {
     jest.resetAllMocks()
   })
 
   test('csv successfully', async () => {
     cron.schedule = jest.fn()
-    csvStore.loadAndProcessStore(emailNotifier, goodEmployees)
+    csvStore = new CsvStore(new EmailNotifier())
+    csvStore.loadAndProcessStore(goodEmployees)
     await sleep(2000)
 
     expect(cronValidateSpy).toHaveBeenCalledTimes(3)
@@ -29,11 +35,12 @@ describe('load', () => {
 
   test('do not throw if employee or cron validations fails', async () => {
     cron.schedule = jest.fn()
-    csvStore.loadAndProcessStore(emailNotifier, badEmployees)
+    csvStore = new CsvStore(new EmailNotifier())
+    csvStore.loadAndProcessStore(badEmployees)
     await sleep(2000)
 
     expect(cronValidateSpy).toHaveBeenCalledTimes(1)
-    expect(cronScheduleSpy).toHaveBeenCalledTimes(0)
+    expect(cron.schedule).toHaveBeenCalledTimes(0)
     expect(logErrorSpy).toHaveBeenCalledTimes(4)
     expect(logErrorSpy).toHaveBeenCalledWith(
       new Error(

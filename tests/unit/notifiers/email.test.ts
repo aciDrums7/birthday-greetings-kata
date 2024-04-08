@@ -1,18 +1,20 @@
-import emailNotifier from '../../../src/notifiers/impl/email'
+import EmailNotifier from '../../../src/notifiers/impl/email'
 
 const logErrorSpy = jest.spyOn(console, 'error')
+let emailNotifier: EmailNotifier
 
 describe('notify', () => {
   beforeEach(() => {
     jest.resetModules()
+    emailNotifier = new EmailNotifier()
   })
 
   test('send mail successfully', async () => {
-    // jest.mock('nodemailer', () => ({
-    //   createTransport: jest.fn().mockReturnValueOnce({
-    //     sendMail: jest.fn().mockResolvedValueOnce(null),
-    //   }),
-    // }))
+    jest.mock('nodemailer', () => ({
+      createTransport: jest.fn().mockReturnValueOnce({
+        sendMail: jest.fn().mockResolvedValueOnce(null),
+      }),
+    }))
     await emailNotifier.sendNotification({
       email: 'john@hotmail.com',
       firstName: 'John',

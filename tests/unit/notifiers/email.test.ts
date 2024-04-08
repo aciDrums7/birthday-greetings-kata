@@ -1,11 +1,8 @@
-import EmailNotifier from "../../../src/notifiers/impl/email"
-
 const logErrorSpy = jest.spyOn(console, 'error')
 
 describe('notifier', () => {
-
   afterEach(() => {
-    jest.resetAllMocks()
+    jest.resetModules()
   })
 
   test('send mail successfully', async () => {
@@ -14,7 +11,9 @@ describe('notifier', () => {
         sendMail: jest.fn().mockResolvedValueOnce(null),
       }),
     }))
-    const emailNotifier = new EmailNotifier()
+    const emailNotifier = new (
+      await import('../../../src/notifiers/impl/email')
+    ).default()
     await emailNotifier.sendNotification({
       email: 'john@hotmail.com',
       firstName: 'John',
@@ -31,7 +30,9 @@ describe('notifier', () => {
           .mockRejectedValueOnce(new Error('Something went wrong')),
       }),
     }))
-    const emailNotifier = new EmailNotifier()
+    const emailNotifier = new (
+      await import('../../../src/notifiers/impl/email')
+    ).default()
     await emailNotifier.sendNotification({
       email: 'john@hotmail.com',
       firstName: 'John',

@@ -75,7 +75,7 @@ Application logic classes contain a bunch of logic, but no calls to the new oper
 Run the application in development mode:
 
 ```javascript
-npm run dev
+yarn dev
 ```
 
 ## Testing
@@ -83,7 +83,7 @@ npm run dev
 You can run the unit tests using Jest:
 
 ```javascript
-npm test
+yarn test
 ```
 
 ## Linting, Formatting and pre-commit hooks
